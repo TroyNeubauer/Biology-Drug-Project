@@ -38,9 +38,9 @@ char* grid = new char[BOARD_HEIGHT * BOARD_WIDTH];
 
 void setPlayer() {
 	delete player;
-	player = new Sprite(playerX * FRAME_WIDTH / BOARD_WIDTH, playerY * FRAME_HEIGHT / BOARD_HEIGHT, FRAME_WIDTH / BOARD_WIDTH, FRAME_HEIGHT / BOARD_HEIGHT, maths::vec4(0, 0, 1, 1));
+	player = new Sprite(FRAME_WIDTH - playerX * FRAME_WIDTH / BOARD_WIDTH * 2, FRAME_HEIGHT - playerY * FRAME_HEIGHT / BOARD_HEIGHT * 2, FRAME_WIDTH / BOARD_WIDTH * 2, FRAME_HEIGHT / BOARD_HEIGHT * 2, maths::vec4(0, 0, 1, 1));
 	delete endSprite;
-	endSprite = new Sprite(endX * FRAME_WIDTH / BOARD_WIDTH, endY * FRAME_HEIGHT / BOARD_HEIGHT, FRAME_WIDTH / BOARD_WIDTH / 2.0f, FRAME_HEIGHT / BOARD_HEIGHT / 2.0f, maths::vec4(1, 0, 1, 1));
+	endSprite = new Sprite(FRAME_WIDTH - endX * FRAME_WIDTH / BOARD_WIDTH * 2,FRAME_HEIGHT - endY * FRAME_HEIGHT / BOARD_HEIGHT * 2, FRAME_WIDTH / BOARD_WIDTH, FRAME_HEIGHT / BOARD_HEIGHT, maths::vec4(1, 0, 1, 1));
 }
 
 void printGrid(char* grid) {
@@ -238,8 +238,8 @@ int main()
 
 	Window window("Biology Test", 1280, 710);
 
-	mat4 ortho = mat4::orthographic(0.0f, FRAME_WIDTH, FRAME_HEIGHT, 0.0f, -1.0f, 1.0f);
-	mat4 matrix = mat4::orthographic(0.0f, FRAME_WIDTH, FRAME_HEIGHT, 0.0f, -1.0f, 1.0f);
+	mat4 ortho = mat4::orthographic(-FRAME_WIDTH, FRAME_WIDTH, FRAME_HEIGHT, -FRAME_HEIGHT, -1.0f, 1.0f);
+	mat4 matrix = mat4::orthographic(-FRAME_WIDTH, FRAME_WIDTH, FRAME_HEIGHT, -FRAME_HEIGHT, -1.0f, 1.0f);
 
 	Shader shader("basic.vert", "basic.frag");
 	shader.enable();
@@ -256,7 +256,7 @@ int main()
 			else {
 				color = maths::vec4(rand() % 1000 / 2000.0f + 0.75f, rand() % 1000 / 2000.0f + 0.75f, rand() % 1000 / 2000.0f + 0.75f, 1);
 			}
-			sprites[x + y * BOARD_WIDTH] = new Sprite(x * FRAME_WIDTH / BOARD_WIDTH, y * FRAME_HEIGHT / BOARD_HEIGHT, FRAME_WIDTH / BOARD_WIDTH, FRAME_HEIGHT / BOARD_HEIGHT, color);
+			sprites[x + y * BOARD_WIDTH] = new Sprite(FRAME_WIDTH - x * FRAME_WIDTH / BOARD_WIDTH * 2, FRAME_HEIGHT - y * FRAME_HEIGHT / BOARD_HEIGHT * 2, FRAME_WIDTH / BOARD_WIDTH * 2, FRAME_HEIGHT / BOARD_HEIGHT * 2, color);
 		}
 	}
 	setPlayer();
@@ -274,19 +274,19 @@ int main()
 		bool moved = false;
 		if (window.isKeyPressed(GLFW_KEY_W))
 		{
-			moved |= move(0, -1);
+			moved |= move(0, 1);
 		}
 		if (window.isKeyPressed(GLFW_KEY_S))
 		{
-			moved |= move(0, 1);
+			moved |= move(0, -1);
 		}
 		if (window.isKeyPressed(GLFW_KEY_A))
 		{
-			moved |= move(-1, 0);
+			moved |= move(1, 0);
 		}
 		if (window.isKeyPressed(GLFW_KEY_D))
 		{
-			moved |= move(1, 0);
+			moved |= move(-1, 0);
 		}
 		if (moved) moveTimer = 0.0;
 		setPlayer();
@@ -294,7 +294,6 @@ int main()
 		for (unsigned int i = 0; i < drugs.size(); i++) {
 			drugs[i].change(matrix);
 		}
-		std::cout << drugs.size() << std::endl;
 
 		for (unsigned int i = 0; i < BOARD_WIDTH * BOARD_HEIGHT; i++)
 		{
