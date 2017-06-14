@@ -11,6 +11,9 @@
 #include "src\maths\maths.h"
 
 #define CAFFEINE_ID 1
+#define SUCROSE_ID 2
+#define ALCOHOL_ID 3
+#define COCAINE_ID 4
 
 using namespace troyberry;
 using namespace maths;

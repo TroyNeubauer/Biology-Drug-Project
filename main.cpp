@@ -209,6 +209,26 @@ int main()
 			Drug drug1(2.0, stren, CAFFEINE_ID);
 			drugs.push_back(drug1);
 			printf("adding caffeine strength %f\n", stren);
+		}else if ((drugName == "cocaine") || (drugName == "cocane")) {
+			stren *= 3.0;
+			Drug drug1(3.0, stren, COCAINE_ID);
+			drugs.push_back(drug1);
+			printf("adding cocaine strength %f\n", stren);
+		} else if ((drugName == "sucrose") || (drugName == "surcose")) {
+				Drug drug1(2.0, stren, SUCROSE_ID);
+				drugs.push_back(drug1);
+				printf("adding sucrose strength %f\n", stren);
+		}else if ((drugName == "alcohol") || (drugName == "alchocol")) {
+			stren *= 1.5;
+			Drug drug1(0.5, stren, ALCOHOL_ID);
+			drugs.push_back(drug1);
+			printf("adding alcohol strength %f\n", stren);
+		}
+		else if ((drugName == "cocaine") || (drugName == "cocane")) {
+			stren *= 2.0;
+			Drug drug1(3.0, stren, COCAINE_ID);
+			drugs.push_back(drug1);
+			printf("adding cocaine strength %f\n", stren);
 		}
 		else {
 			printf("Unknown drug: %s", drugName.c_str());
